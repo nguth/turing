@@ -1,6 +1,7 @@
 package turing;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
@@ -11,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 class Program {
     private Set<Integer> states;            //Q
     private Set<Character> symbols;         //SIGMA
-    private List<List> transitions;         //delta
+    private List<HashMap> transitions;      //delta
     private Set<Integer> finalStates;       //F
     private Set<Character> tapeSymbols;     //GAMMA
     private int initialState;               //q0
@@ -22,13 +23,13 @@ class Program {
         this.BLANK = '_';
         this.states = new CopyOnWriteArraySet<Integer>();
         this.symbols = new CopyOnWriteArraySet<Character>();
-        this.transitions = new ArrayList<List>();
+        this.transitions = new ArrayList<HashMap>();
         this.finalStates = new CopyOnWriteArraySet<Integer>();
         this.tapeSymbols = new CopyOnWriteArraySet<Character>();
     }
 
     public Program(Set<Integer> states, Set<Character> symbols,
-                   List<List> transitions, Set<Integer> finalStates,
+                   List<HashMap> transitions, Set<Integer> finalStates,
                    Set<Character> tapeSymbols, int initialState,
                    char blank) {
         this.states = states;
@@ -44,30 +45,38 @@ class Program {
     public Set<Integer> getStates() {
         return states;
     }
-    public void setStates(Set<Integer> states) {
-        this.states = states;
+    public void setStates(Iterable<Integer> states) {
+        for (Integer state:states) {
+            this.states.add(state);
+        }
     }
     public Set<Character> getSymbols() {
         return symbols;
     }
-    public void setSymbols(Set<Character> symbols) {
-        this.symbols = symbols;
+    public void setSymbols(Iterable<Character> symbols) {
+        for(Character symbol:symbols) {
+            this.symbols.add(symbol);
+        }
     }
 
     public Set<Integer> getFinalStates() {
         return finalStates;
     }
 
-    public void setFinalStates(Set<Integer> finalStates) {
-        this.finalStates = finalStates;
+    public void setFinalStates(Iterable<Integer> finalStates) {
+        for (int state:finalStates){
+            this.finalStates.add(state);
+        }
     }
 
     public Set<Character> getTapeSymbols() {
         return tapeSymbols;
     }
 
-    public void setTapeSymbols(Set<Character> tapeSymbols) {
-        this.tapeSymbols = tapeSymbols;
+    public void setTapeSymbols(Iterable<Character> tapeSymbols) {
+        for (Character symbol:tapeSymbols){
+            this.tapeSymbols.add(symbol);
+        }
     }
 
     public int getInitialState() {
@@ -82,11 +91,11 @@ class Program {
         return BLANK;
     }
 
-    public List<List> getTransitions() {
+    public List<HashMap> getTransitions() {
         return transitions;
     }
 
-    public void setTransitions(List<List> transitions) {
+    public void setTransitions(List<HashMap> transitions) {
         this.transitions = transitions;
     }
 

@@ -1,4 +1,4 @@
-turing
+Turing
 ======
 
 Turingmaschine Aufgabe in Java
