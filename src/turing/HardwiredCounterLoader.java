@@ -26,17 +26,17 @@ import java.util.HashSet;
 
 public class HardwiredCounterLoader implements ProgramLoader {
 
-    HashMap<Pair<Character, Character>, Triplet<Character, Character, Movement>> transitions;
+    HashMap<Pair<Integer, Character>, Triplet<Integer, Character, Movement>> transitions;
 
     public HardwiredCounterLoader(){
-        transitions = new HashMap<Pair<Character, Character>, Triplet<Character, Character, Movement>>();
-        transitions.put(new Pair('0','1'), new Triplet('0','1',Movement.RIGHT));
-        transitions.put(new Pair('0','0'), new Triplet('0','0',Movement.RIGHT));
-        transitions.put(new Pair('0','_'), new Triplet('0','_',Movement.LEFT));
+        transitions = new HashMap<Pair<Integer, Character>, Triplet<Integer, Character, Movement>>();
+        transitions.put(new Pair(0,'1'), new Triplet(0,'1',Movement.RIGHT));
+        transitions.put(new Pair(0,'0'), new Triplet(0,'0',Movement.RIGHT));
+        transitions.put(new Pair(0,'_'), new Triplet(0,'_',Movement.LEFT));
 
-        transitions.put(new Pair('1','0'), new Triplet('0','1',Movement.RIGHT));
-        transitions.put(new Pair('1','1'), new Triplet('1','0',Movement.LEFT));
-        transitions.put(new Pair('1','B'), new Triplet('0','1',Movement.RIGHT));
+        transitions.put(new Pair(1,'0'), new Triplet(0,'1',Movement.RIGHT));
+        transitions.put(new Pair(1,'1'), new Triplet(1,'0',Movement.LEFT));
+        transitions.put(new Pair(1,'B'), new Triplet(0,'1',Movement.STOP));
     }
 
 

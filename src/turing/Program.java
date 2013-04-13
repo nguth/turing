@@ -76,7 +76,7 @@ class Program {
     public void setTapeSymbols(Iterable<Character> tapeSymbols) {
         for (Character symbol:tapeSymbols){
             this.tapeSymbols.add(symbol);
-        }
+        }                   int
     }
 
     public int getInitialState() {
