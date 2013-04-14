@@ -6,7 +6,6 @@ import org.javatuples.Triplet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 
 /**
  *   Returns a counter program
@@ -30,18 +29,18 @@ public class HardwiredCounterLoader implements ProgramLoader {
 
     public HardwiredCounterLoader(){
         transitions = new HashMap<Pair<Integer, Character>, Triplet<Integer, Character, Movement>>();
-        transitions.put(new Pair(0,'1'), new Triplet(0,'1',Movement.RIGHT));
-        transitions.put(new Pair(0,'0'), new Triplet(0,'0',Movement.RIGHT));
-        transitions.put(new Pair(0,'_'), new Triplet(0,'_',Movement.LEFT));
+        transitions.put(new Pair<Integer, Character>(0,'1'), new Triplet<Integer, Character, Movement>(0,'1',Movement.RIGHT));
+        transitions.put(new Pair<Integer, Character>(0,'0'), new Triplet<Integer, Character, Movement>(0,'0',Movement.RIGHT));
+        transitions.put(new Pair<Integer, Character>(0,'_'), new Triplet<Integer, Character, Movement>(0,'_',Movement.LEFT));
 
-        transitions.put(new Pair(1,'0'), new Triplet(0,'1',Movement.RIGHT));
-        transitions.put(new Pair(1,'1'), new Triplet(1,'0',Movement.LEFT));
-        transitions.put(new Pair(1,'B'), new Triplet(0,'1',Movement.STOP));
+        transitions.put(new Pair<Integer, Character>(1,'0'), new Triplet<Integer, Character, Movement>(0,'1',Movement.RIGHT));
+        transitions.put(new Pair<Integer, Character>(1,'1'), new Triplet<Integer, Character, Movement>(1,'0',Movement.LEFT));
+        transitions.put(new Pair<Integer, Character>(1,'B'), new Triplet<Integer, Character, Movement>(0,'1',Movement.STOP));
     }
 
 
     public Program load(String whatever){
-        Program program = new Program('_');
+        Program program = new Program('_', 1, 1);
         ArrayList<HashMap> transitions = new ArrayList<HashMap>();
         transitions.add(this.transitions);
         program.setTransitions(transitions);
@@ -50,7 +49,6 @@ public class HardwiredCounterLoader implements ProgramLoader {
         program.setTapeSymbols(Arrays.asList('0','1'));
         program.setFinalStates(Arrays.asList(1));
         program.setInitialState(0);
-
         return program;
     }
 }

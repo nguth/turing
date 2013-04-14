@@ -17,21 +17,33 @@ class Program {
     private Set<Character> tapeSymbols;     //GAMMA
     private int initialState;               //q0
     private final char BLANK;               //B
+    private final int tapes;			    // number of tapes
+    private final int tracks;				// tracks per tape
 
 
-    public Program(char blank){
+    public Program(char blank, int tapes, int tracks){
         this.BLANK = '_';
         this.states = new CopyOnWriteArraySet<Integer>();
         this.symbols = new CopyOnWriteArraySet<Character>();
         this.transitions = new ArrayList<HashMap>();
         this.finalStates = new CopyOnWriteArraySet<Integer>();
         this.tapeSymbols = new CopyOnWriteArraySet<Character>();
+        this.tapes = tapes;
+        this.tracks = tracks;
     }
 
-    public Program(Set<Integer> states, Set<Character> symbols,
+    public int getTapes() {
+		return tapes;
+	}
+
+	public int getTracks() {
+		return tracks;
+	}
+
+	public Program(char blank, int tapes, int tracks,
+    		Set<Integer> states, Set<Character> symbols,
                    List<HashMap> transitions, Set<Integer> finalStates,
-                   Set<Character> tapeSymbols, int initialState,
-                   char blank) {
+                   Set<Character> tapeSymbols, int initialState) {
         this.states = states;
         this.symbols = symbols;
         this.transitions = transitions;
@@ -39,6 +51,8 @@ class Program {
         this.tapeSymbols = tapeSymbols;
         this.initialState = initialState;
         this.BLANK = blank;
+        this.tapes = tapes;
+        this.tracks = tracks;
     }
 
 
@@ -76,7 +90,7 @@ class Program {
     public void setTapeSymbols(Iterable<Character> tapeSymbols) {
         for (Character symbol:tapeSymbols){
             this.tapeSymbols.add(symbol);
-        }                   int
+        }
     }
 
     public int getInitialState() {
