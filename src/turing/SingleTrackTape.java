@@ -11,7 +11,7 @@ import java.util.List;
 public class SingleTrackTape {
 	private List<Character> tape;
 	private static char BLANK;
-	private int slugLeft; // Korrekturfaktor fŸr endloses Tape.
+	private int slugLeft; // Korrekturfaktor fï¿½r endloses Tape.
 	private int tapePosition = 0;
 	
 	public SingleTrackTape(String content, char blank){
@@ -75,7 +75,7 @@ public class SingleTrackTape {
 	public char getChar(){
 		return this.tape.get(this.tapePosition+this.slugLeft);
 	}
-	public void setChar(char value){
+	public void putChar(char value){
 		this.tape.set(this.tapePosition+this.slugLeft, value);
 	}
 	public int getPosition(){

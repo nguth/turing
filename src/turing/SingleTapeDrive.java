@@ -1,5 +1,6 @@
 package turing;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,13 +21,25 @@ public class SingleTapeDrive implements Drive {
 	public SingleTapeDrive(char blank){
 		this.tape = new SingleTrackTape(blank);
 	}
+	@Override
+	public int getNumberOfTapes(){ return 1; }
 
 	@Override
+	public void move(List<Movement> movement) {
+		switch (movement.get(0)) {
+		case LEFT:
+			this.tape.left();
+			break;
+		case RIGHT:
+			this.tape.right();
+			break;
+		}
+	}
+	
 	public char right(int tape) {
 		return this.tape.right();
 	}
 
-	@Override
 	public char left(int tape) {
 		return this.tape.left();
 	}
@@ -35,11 +48,22 @@ public class SingleTapeDrive implements Drive {
 		this.tape.setValue(value);
 	}
 	@Override
+	public void gotoStartAllTapes() {
+		this.tape.gotoStart();
+	}
+	@Override
 	public char gotoStart(int tapeNr) {
 		return this.tape.gotoStart();
 	}
 	public char gotoEnd() {
 		return this.tape.gotoEnd();
+	}
+	@Override
+	public List<Character> read(){
+		ArrayList<Character> chars =  new ArrayList<Character>();
+		chars.add(this.tape.getChar());
+		return chars;
+		// return Arrays.asList(this.tape.getChar());
 	}
 	
 	@Override
@@ -53,5 +77,9 @@ public class SingleTapeDrive implements Drive {
 	@Override
 	public String getTapeContentAsString(int tape){
 		return this.tape.getValueAsString();
+	}
+	@Override
+	public void write(List<Character> chars) {
+		this.tape.putChar(chars.get(0));
 	}
 }

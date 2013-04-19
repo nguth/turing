@@ -3,6 +3,9 @@ package turing;
 import java.util.List;
 import java.util.Set;
 
+import org.javatuples.Pair;
+import org.javatuples.Triplet;
+
 import static java.lang.Thread.sleep;
 
 /** The base machine class. Can run a program.
@@ -25,18 +28,6 @@ public class Machine {
         this.inputString = "";
     }
 
-    // run continously
-    public void run(){
-        this.stop = false;
-        while(!stop){
-            step();
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
-        }
-    }
 
     public void setInput(int tape, String data){
         this.originalInput = data;
@@ -59,12 +50,13 @@ public class Machine {
     public void initialize(){
         this.inputString = this.originalInput;
         this.state = this.program.getInitialState();
+        this.drive.gotoStartAllTapes();      
     }
     
     /** load the program and initialize the machine */
     public void load(String program) {
     	this.program = loader.load(program);
-    	if(this.program.getTapes() == 1 && this.program.getTracks() == 1) {
+    	if(this.program.getTapesRequired() == 1 && this.program.getTracksRequired() == 1) {
     		this.drive = new SingleTapeDrive(this.program.getBlank());
     	}
     	this.initialize();
@@ -74,10 +66,28 @@ public class Machine {
     
     // one step
     public void step(){
-
-
+    	List<Character> tapeContent = drive.read();
+    	Pair<Integer, List<Character>> input = new Pair<Integer, List<Character>>(this.state, tapeContent);
+    	Triplet<Integer, List<Character>, List<Movement>> next = this.program.step(input);
+    	this.state = next.getValue0();
+    	this.drive.write(next.getValue1());
+    	this.drive.move(next.getValue2());
+    	System.out.println("S: " + this.state + " T: " + this.drive.getTapeContentAsString(1));
     }
 
+    // run continously
+    public void run(){
+        this.stop = false;
+        while(!stop){
+            step();
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
+    }
+    
     public void stop(){
         this.stop = true;
         System.out.println("turing.Machine stopped.");
@@ -86,6 +96,11 @@ public class Machine {
     public static void main(String[] args) {
 		Machine machine = new Machine(new HardwiredCounterLoader());
 		machine.load("");
+		machine.setInput("1");
+		System.out.println("Set Tape content to: " + machine.getInput());
+		machine.initialize();
+		System.out.println("Machine initialized.");
+		machine.run();
 	}
     
 }

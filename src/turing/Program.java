@@ -6,44 +6,40 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import org.javatuples.Pair;
+import org.javatuples.Triplet;
+
 /**
  *
  */
 class Program {
     private Set<Integer> states;            //Q
     private Set<Character> symbols;         //SIGMA
-    private List<HashMap> transitions;      //delta
+    private HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>> transitions;      //delta
     private Set<Integer> finalStates;       //F
     private Set<Character> tapeSymbols;     //GAMMA
     private int initialState;               //q0
     private final char BLANK;               //B
-    private final int tapes;			    // number of tapes
-    private final int tracks;				// tracks per tape
+    private final int tapesRequired;		// number of tapes
+    private final int tracksRequired;		// tracks per tape
 
 
-    public Program(char blank, int tapes, int tracks){
+    public Program(char blank, int tapesRequired, int tracksRequired){
         this.BLANK = '_';
         this.states = new CopyOnWriteArraySet<Integer>();
         this.symbols = new CopyOnWriteArraySet<Character>();
-        this.transitions = new ArrayList<HashMap>();
+        this.transitions = new HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>>();
         this.finalStates = new CopyOnWriteArraySet<Integer>();
         this.tapeSymbols = new CopyOnWriteArraySet<Character>();
-        this.tapes = tapes;
-        this.tracks = tracks;
+        this.tapesRequired = tapesRequired;  //for validation
+        this.tracksRequired = tracksRequired;  //for validation
     }
 
-    public int getTapes() {
-		return tapes;
-	}
-
-	public int getTracks() {
-		return tracks;
-	}
-
-	public Program(char blank, int tapes, int tracks,
+	public Program(char blank, int tapesRequired, int tracksRequired,
     		Set<Integer> states, Set<Character> symbols,
-                   List<HashMap> transitions, Set<Integer> finalStates,
-                   Set<Character> tapeSymbols, int initialState) {
+    		HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>> transitions, 
+    		Set<Integer> finalStates,
+    		Set<Character> tapeSymbols, int initialState) {
         this.states = states;
         this.symbols = symbols;
         this.transitions = transitions;
@@ -51,11 +47,17 @@ class Program {
         this.tapeSymbols = tapeSymbols;
         this.initialState = initialState;
         this.BLANK = blank;
-        this.tapes = tapes;
-        this.tracks = tracks;
+        this.tapesRequired = tapesRequired;
+        this.tracksRequired = tracksRequired;
     }
 
+    public int getTapesRequired() {
+		return tapesRequired;
+	}
 
+	public int getTracksRequired() {
+		return tracksRequired;
+	}
     public Set<Integer> getStates() {
         return states;
     }
@@ -105,12 +107,17 @@ class Program {
         return BLANK;
     }
 
-    public List<HashMap> getTransitions() {
+    public HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>> getTransitions() {
         return transitions;
     }
 
-    public void setTransitions(List<HashMap> transitions) {
+    public void setTransitions(HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>> transitions) {
         this.transitions = transitions;
+    }
+    
+    /** This method checks for transitions and returns the next step */
+    public Triplet<Integer, List<Character>, List<Movement>> step(Pair<Integer, List<Character>> input){
+    	return this.transitions.get(input);
     }
 
     public void validate() throws VerifyError {
@@ -130,5 +137,7 @@ class Program {
         }
         // can be extended
     }
+    
+    
 
 }

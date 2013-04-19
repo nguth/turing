@@ -6,6 +6,7 @@ import org.javatuples.Triplet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *   Returns a counter program
@@ -25,24 +26,22 @@ import java.util.HashMap;
 
 public class HardwiredCounterLoader implements ProgramLoader {
 
-    HashMap<Pair<Integer, Character>, Triplet<Integer, Character, Movement>> transitions;
+    HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>> transitions;
 
     public HardwiredCounterLoader(){
-        transitions = new HashMap<Pair<Integer, Character>, Triplet<Integer, Character, Movement>>();
-        transitions.put(new Pair<Integer, Character>(0,'1'), new Triplet<Integer, Character, Movement>(0,'1',Movement.RIGHT));
-        transitions.put(new Pair<Integer, Character>(0,'0'), new Triplet<Integer, Character, Movement>(0,'0',Movement.RIGHT));
-        transitions.put(new Pair<Integer, Character>(0,'_'), new Triplet<Integer, Character, Movement>(0,'_',Movement.LEFT));
+        transitions = new HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>>();
+        transitions.put(new Pair<Integer, List<Character>>(0,Arrays.asList('1')), new Triplet<Integer, List<Character>, List<Movement>>(0,Arrays.asList('1'),Arrays.asList(Movement.RIGHT)));
+        transitions.put(new Pair<Integer, List<Character>>(0,Arrays.asList('0')), new Triplet<Integer, List<Character>, List<Movement>>(0,Arrays.asList('0'),Arrays.asList(Movement.RIGHT)));
+        transitions.put(new Pair<Integer, List<Character>>(0,Arrays.asList('_')), new Triplet<Integer, List<Character>, List<Movement>>(0,Arrays.asList('_'),Arrays.asList(Movement.LEFT)));
 
-        transitions.put(new Pair<Integer, Character>(1,'0'), new Triplet<Integer, Character, Movement>(0,'1',Movement.RIGHT));
-        transitions.put(new Pair<Integer, Character>(1,'1'), new Triplet<Integer, Character, Movement>(1,'0',Movement.LEFT));
-        transitions.put(new Pair<Integer, Character>(1,'B'), new Triplet<Integer, Character, Movement>(0,'1',Movement.STOP));
+        transitions.put(new Pair<Integer, List<Character>>(1,Arrays.asList('0')), new Triplet<Integer, List<Character>, List<Movement>>(0,Arrays.asList('1'),Arrays.asList(Movement.RIGHT)));
+        transitions.put(new Pair<Integer, List<Character>>(1,Arrays.asList('1')), new Triplet<Integer, List<Character>, List<Movement>>(1,Arrays.asList('0'),Arrays.asList(Movement.LEFT)));
+        transitions.put(new Pair<Integer, List<Character>>(1,Arrays.asList('B')), new Triplet<Integer, List<Character>, List<Movement>>(0,Arrays.asList('1'),Arrays.asList(Movement.STOP)));
     }
 
 
     public Program load(String whatever){
         Program program = new Program('_', 1, 1);
-        ArrayList<HashMap> transitions = new ArrayList<HashMap>();
-        transitions.add(this.transitions);
         program.setTransitions(transitions);
         program.setStates(Arrays.asList(1, 2));
         program.setSymbols(Arrays.asList('0','1'));
