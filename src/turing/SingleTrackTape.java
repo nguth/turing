@@ -56,7 +56,7 @@ public class SingleTrackTape {
 		this.tapePosition += 1;
 		try {
 			return this.tape.get(this.tapePosition+this.slugLeft);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (IndexOutOfBoundsException e) {
 			this.tape.add(this.BLANK);
 			return this.BLANK;
 		}
@@ -66,7 +66,7 @@ public class SingleTrackTape {
 		try {
 			return this.tape.get(this.tapePosition+this.slugLeft);
 		}
-		catch (ArrayIndexOutOfBoundsException e){
+		catch (IndexOutOfBoundsException e){
 			this.tape.add(0, this.BLANK);
 			this.slugLeft += 1; // Korrekturfaktor
 			return this.BLANK;

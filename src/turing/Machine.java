@@ -20,12 +20,10 @@ public class Machine {
     private final ProgramLoader loader;
     private Drive drive;
     private String originalInput;
-    private String inputString;
 
     public Machine(ProgramLoader loader){
         this.loader = loader;
         this.originalInput = "";
-        this.inputString = "";
     }
 
 
@@ -48,7 +46,6 @@ public class Machine {
     }
 
     public void initialize(){
-        this.inputString = this.originalInput;
         this.state = this.program.getInitialState();
         this.drive.gotoStartAllTapes();      
     }
@@ -56,10 +53,12 @@ public class Machine {
     /** load the program and initialize the machine */
     public void load(String program) {
     	this.program = loader.load(program);
+    	if (this.originalInput.isEmpty()) {
+    		this.originalInput = Character.toString(this.program.getBlank());
+    	}
     	if(this.program.getTapesRequired() == 1 && this.program.getTracksRequired() == 1) {
     		this.drive = new SingleTapeDrive(this.program.getBlank());
     	}
-    	this.initialize();
     }
 
     
