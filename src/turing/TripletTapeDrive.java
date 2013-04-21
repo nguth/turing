@@ -5,21 +5,24 @@ import java.util.List;
 
 public class TripletTapeDrive implements Drive {
 
-	private SingleTrackTape tape1;
-	private SingleTrackTape tape2;
-	private SingleTrackTape tape3;
 	private ArrayList<SingleTrackTape> tapes;
 	private static char BLANK;
 
 	public TripletTapeDrive(String content, char blank) {
-		this.tape1 = new SingleTrackTape(blank);
-		this.tape2 = new SingleTrackTape(blank);
-		this.tape3 = new SingleTrackTape(blank);
-		tapes = new ArrayList<SingleTrackTape>();
-		tapes.add(tape1);
-		tapes.add(tape2);
-		tapes.add(tape3);
-		this.tape1.setValue(content);
+		this.tapes = new ArrayList<SingleTrackTape>();
+		this.tapes.add(new SingleTrackTape(blank));
+		this.tapes.add(new SingleTrackTape(blank));
+		this.tapes.add(new SingleTrackTape(blank));
+
+		this.tapes.get(0).setValue(content);
+	}
+
+	public TripletTapeDrive(char blank) {
+		this.tapes = new ArrayList<SingleTrackTape>();
+
+		this.tapes.add(new SingleTrackTape(blank));
+		this.tapes.add(new SingleTrackTape(blank));
+		this.tapes.add(new SingleTrackTape(blank));
 	}
 
 	@Override
@@ -28,7 +31,7 @@ public class TripletTapeDrive implements Drive {
 	}
 
 	@Override
-	public void move(List<Movement> movement) {
+	public void move(List<Movement> movement) throws MachineStoppedException {
 		int moveIndex = 0;
 
 		for (SingleTrackTape tape : tapes) {
@@ -40,8 +43,9 @@ public class TripletTapeDrive implements Drive {
 			case RIGHT:
 				tape.right();
 				break;
+			case STOP:
+				throw new MachineStoppedException();
 			}
-
 			moveIndex++;
 		}
 	}
@@ -49,17 +53,17 @@ public class TripletTapeDrive implements Drive {
 	@Override
 	public List<Character> read() {
 		ArrayList<Character> chars = new ArrayList<Character>();
-		chars.add(this.tape1.getChar());
-		chars.add(this.tape2.getChar());
-		chars.add(this.tape3.getChar());
+		chars.add(this.tapes.get(0).getChar());
+		chars.add(this.tapes.get(1).getChar());
+		chars.add(this.tapes.get(2).getChar());
 		return chars;
 	}
 
 	@Override
 	public void write(List<Character> chars) {
-		this.tape1.putChar(chars.get(0));
-		this.tape2.putChar(chars.get(1));
-		this.tape3.putChar(chars.get(2));
+		this.tapes.get(0).putChar(chars.get(0));
+		this.tapes.get(1).putChar(chars.get(1));
+		this.tapes.get(2).putChar(chars.get(2));
 	}
 
 	@Override
@@ -74,9 +78,9 @@ public class TripletTapeDrive implements Drive {
 
 	@Override
 	public void gotoStartAllTapes() {
-		this.tape1.gotoStart();
-		this.tape2.gotoStart();
-		this.tape3.gotoStart();
+		this.tapes.get(0).gotoStart();
+		this.tapes.get(1).gotoStart();
+		this.tapes.get(2).gotoStart();
 	}
 
 	@Override

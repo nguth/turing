@@ -53,11 +53,15 @@ public class Machine {
     /** load the program and initialize the machine */
     public void load(String program) {
     	this.program = loader.load(program);
+    	
     	if (this.originalInput.isEmpty()) {
     		this.originalInput = Character.toString(this.program.getBlank());
     	}
+    	
     	if(this.program.getTapesRequired() == 1 && this.program.getTracksRequired() == 1) {
     		this.drive = new SingleTapeDrive(this.program.getBlank());
+    	}else if(this.program.getTapesRequired() == 3 && this.program.getTracksRequired() == 1){
+    		this.drive = new TripletTapeDrive(this.program.getBlank());
     	}
     }
 
@@ -68,7 +72,7 @@ public class Machine {
     	List<Character> tapeContent = drive.read();
     	Pair<Integer, List<Character>> input = new Pair<Integer, List<Character>>(this.state, tapeContent);
     	Triplet<Integer, List<Character>, List<Movement>> next = this.program.step(input);
-    	// System.out.print(input + "-> " + next+"\n");
+    	
     	this.state = next.getValue0();
     	this.drive.write(next.getValue1());
     	this.drive.move(next.getValue2());
@@ -100,9 +104,9 @@ public class Machine {
     }
     
     public static void main(String[] args) {
-		Machine machine = new Machine(new HardwiredCounterLoader());
+		Machine machine = new Machine(new MultiplikationCounterLoader());
 		machine.load("");
-		machine.setInput("1");
+		machine.setInput("0001001");
 		System.out.println("Set Tape content to: " + machine.getInput());
 		machine.initialize();
 		System.out.println("Machine initialized.");
