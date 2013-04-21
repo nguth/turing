@@ -53,10 +53,12 @@ public class Machine {
     /** load the program and initialize the machine */
     public void load(String program) {
     	this.program = loader.load(program);
+    	if (this.originalInput.isEmpty()) {
+    		this.originalInput = Character.toString(this.program.getBlank());
+    	}
     	if(this.program.getTapesRequired() == 1 && this.program.getTracksRequired() == 1) {
     		this.drive = new SingleTapeDrive(this.program.getBlank());
     	}
-    	this.initialize();
     }
 
     
@@ -91,18 +93,9 @@ public class Machine {
     }
     
     public static void main(String[] args) {
-//		Machine machine = new Machine(new HardwiredCounterLoader());
-//		machine.load("");
-//		machine.setInput("1");
-//		System.out.println("Set Tape content to: " + machine.getInput());
-//		machine.initialize();
-//		System.out.println("Machine initialized.");
-//		machine.run();
-    	
-    	
-    	Machine machine = new Machine(new HardwiredCounterLoader());
+		Machine machine = new Machine(new HardwiredCounterLoader());
 		machine.load("");
-		machine.setInput("0001001");
+		machine.setInput("1");
 		System.out.println("Set Tape content to: " + machine.getInput());
 		machine.initialize();
 		System.out.println("Machine initialized.");
@@ -110,3 +103,4 @@ public class Machine {
 	}
     
 }
+
