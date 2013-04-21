@@ -25,7 +25,7 @@ public class SingleTapeDrive implements Drive {
 	public int getNumberOfTapes(){ return 1; }
 
 	@Override
-	public void move(List<Movement> movement) {
+	public void move(List<Movement> movement) throws MachineStoppedException {
 		switch (movement.get(0)) {
 		case LEFT:
 			this.tape.left();
@@ -33,6 +33,8 @@ public class SingleTapeDrive implements Drive {
 		case RIGHT:
 			this.tape.right();
 			break;
+		case STOP:
+			throw new MachineStoppedException();
 		}
 	}
 	
