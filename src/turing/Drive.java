@@ -9,7 +9,7 @@ public interface Drive {
 	 * Moves the tape(s)
 	 * @param movment A list of Movement Types.
 	 */
-	void move(List<Movement> movment);
+	void move(List<Movement> movment) throws MachineStoppedException;
 	
 	/**
 	 * Reads the contents from all tapes

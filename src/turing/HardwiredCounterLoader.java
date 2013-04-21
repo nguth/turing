@@ -33,11 +33,11 @@ public class HardwiredCounterLoader implements ProgramLoader {
         transitions = new HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>>();
         transitions.put(new Pair<Integer, List<Character>>(0,Arrays.asList('1')), new Triplet<Integer, List<Character>, List<Movement>>(0,Arrays.asList('1'),Arrays.asList(Movement.RIGHT)));
         transitions.put(new Pair<Integer, List<Character>>(0,Arrays.asList('0')), new Triplet<Integer, List<Character>, List<Movement>>(0,Arrays.asList('0'),Arrays.asList(Movement.RIGHT)));
-        transitions.put(new Pair<Integer, List<Character>>(0,Arrays.asList('_')), new Triplet<Integer, List<Character>, List<Movement>>(0,Arrays.asList('_'),Arrays.asList(Movement.LEFT)));
+        transitions.put(new Pair<Integer, List<Character>>(0,Arrays.asList('_')), new Triplet<Integer, List<Character>, List<Movement>>(1,Arrays.asList('_'),Arrays.asList(Movement.LEFT)));
 
         transitions.put(new Pair<Integer, List<Character>>(1,Arrays.asList('0')), new Triplet<Integer, List<Character>, List<Movement>>(0,Arrays.asList('1'),Arrays.asList(Movement.RIGHT)));
         transitions.put(new Pair<Integer, List<Character>>(1,Arrays.asList('1')), new Triplet<Integer, List<Character>, List<Movement>>(1,Arrays.asList('0'),Arrays.asList(Movement.LEFT)));
-        transitions.put(new Pair<Integer, List<Character>>(1,Arrays.asList('_')), new Triplet<Integer, List<Character>, List<Movement>>(0,Arrays.asList('1'),Arrays.asList(Movement.STOP)));
+        transitions.put(new Pair<Integer, List<Character>>(1,Arrays.asList('_')), new Triplet<Integer, List<Character>, List<Movement>>(0,Arrays.asList('1'),Arrays.asList(Movement.RIGHT)));
     }
 
 

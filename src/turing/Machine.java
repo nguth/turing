@@ -64,10 +64,11 @@ public class Machine {
     
     
     // one step
-    public void step(){
+    public void step() throws MachineStoppedException {
     	List<Character> tapeContent = drive.read();
     	Pair<Integer, List<Character>> input = new Pair<Integer, List<Character>>(this.state, tapeContent);
     	Triplet<Integer, List<Character>, List<Movement>> next = this.program.step(input);
+    	// System.out.print(input + "-> " + next+"\n");
     	this.state = next.getValue0();
     	this.drive.write(next.getValue1());
     	this.drive.move(next.getValue2());
@@ -78,13 +79,19 @@ public class Machine {
     public void run(){
         this.stop = false;
         while(!stop){
-            step();
+            try {
+				step();
+			} catch (MachineStoppedException e1) {
+				this.stop = true;
+			}
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }
+		System.out.println("Machine stopped");
+		System.out.println(this.drive.getTapeContentAsString(1));
     }
     
     public void stop(){
