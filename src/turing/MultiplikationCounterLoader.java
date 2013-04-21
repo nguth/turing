@@ -24,7 +24,7 @@ public class MultiplikationCounterLoader implements ProgramLoader {
 		transitions.put(new Pair<Integer, List<Character>>(2, Arrays.asList('0','_','_')), new Triplet<Integer, List<Character>, List<Movement>>(3, Arrays.asList('0','_','_'), Arrays.asList(Movement.NONE, Movement.RIGHT, Movement.NONE)));
 	
 		transitions.put(new Pair<Integer, List<Character>>(3, Arrays.asList('0','0','_')), new Triplet<Integer, List<Character>, List<Movement>>(3, Arrays.asList('0','0','0'), Arrays.asList(Movement.NONE, Movement.RIGHT, Movement.RIGHT)));
-		transitions.put(new Pair<Integer, List<Character>>(3, Arrays.asList('0','_','_')), new Triplet<Integer, List<Character>, List<Movement>>(1, Arrays.asList('_','_','_'), Arrays.asList(Movement.RIGHT, Movement.NONE, Movement.RIGHT)));
+		transitions.put(new Pair<Integer, List<Character>>(3, Arrays.asList('0','_','_')), new Triplet<Integer, List<Character>, List<Movement>>(1, Arrays.asList('_','_','_'), Arrays.asList(Movement.RIGHT, Movement.NONE, Movement.NONE)));
 	
 	}
 

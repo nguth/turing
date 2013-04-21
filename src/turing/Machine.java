@@ -77,6 +77,9 @@ public class Machine {
     	this.drive.write(next.getValue1());
     	this.drive.move(next.getValue2());
     	System.out.println("S: " + this.state + " T: " + this.drive.getTapeContentAsString(1));
+    	System.out.println("S: " + this.state + " T: " + this.drive.getTapeContentAsString(2));
+    	System.out.println("S: " + this.state + " T: " + this.drive.getTapeContentAsString(3));
+    	System.out.println();
     }
 
     // run continously
@@ -95,7 +98,8 @@ public class Machine {
             }
         }
 		System.out.println("Machine stopped");
-		System.out.println(this.drive.getTapeContentAsString(1));
+		System.out.println(this.drive.getTapeContentAsString(3));
+		System.out.println();
     }
     
     public void stop(){
