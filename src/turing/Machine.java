@@ -20,12 +20,10 @@ public class Machine {
     private final ProgramLoader loader;
     private Drive drive;
     private String originalInput;
-    private String inputString;
 
     public Machine(ProgramLoader loader){
         this.loader = loader;
         this.originalInput = "";
-        this.inputString = "";
     }
 
 
@@ -48,7 +46,6 @@ public class Machine {
     }
 
     public void initialize(){
-        this.inputString = this.originalInput;
         this.state = this.program.getInitialState();
         this.drive.gotoStartAllTapes();      
     }
@@ -94,9 +91,18 @@ public class Machine {
     }
     
     public static void main(String[] args) {
-		Machine machine = new Machine(new HardwiredCounterLoader());
+//		Machine machine = new Machine(new HardwiredCounterLoader());
+//		machine.load("");
+//		machine.setInput("1");
+//		System.out.println("Set Tape content to: " + machine.getInput());
+//		machine.initialize();
+//		System.out.println("Machine initialized.");
+//		machine.run();
+    	
+    	
+    	Machine machine = new Machine(new HardwiredCounterLoader());
 		machine.load("");
-		machine.setInput("1");
+		machine.setInput("0001001");
 		System.out.println("Set Tape content to: " + machine.getInput());
 		machine.initialize();
 		System.out.println("Machine initialized.");
