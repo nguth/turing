@@ -1,6 +1,7 @@
 package turing;
 
 import java.util.List;
+
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
@@ -10,7 +11,6 @@ import org.javatuples.Triplet;
 public class Machine {
 
     private Program program;  // configuration: M = (Q,Σ, Γ, δ, q0, B, F)
-    private List<List> tapes;
     private int state;
     private boolean stop = false;
     private final ProgramLoader loader;
@@ -119,12 +119,12 @@ public class Machine {
     }
     
     public static void main(String[] args) {
+
 		Machine machine = new Machine(new HardwiredProgramLoader());
 		// TODO: Make those args
 		machine.verbose = true;
-		machine.load("multiply");
-		machine.setInput("0001001");
-		
+		machine.load("factorial");
+		machine.setInput("0001");
 		System.out.println("Set Tape content to: " + machine.getInput());
 		machine.initialize();
 		System.out.println("Machine initialized.");
