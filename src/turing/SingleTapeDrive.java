@@ -1,7 +1,6 @@
 package turing;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -46,6 +45,7 @@ public class SingleTapeDrive implements Drive {
 		return this.tape.left();
 	}
 	
+	@Override
 	public void setValue(int tapeNr, String value) {
 		this.tape.setValue(value);
 	}

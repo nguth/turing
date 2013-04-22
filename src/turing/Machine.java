@@ -1,12 +1,8 @@
 package turing;
 
 import java.util.List;
-import java.util.Set;
-
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
-
-import static java.lang.Thread.sleep;
 
 /** The base machine class. Can run a program.
  * 
@@ -51,6 +47,11 @@ public class Machine {
         this.state = this.program.getInitialState();
         this.drive.gotoStartAllTapes();
         this.counter = 0;
+    	if (this.verbose) {
+	    	System.out.print("Initial value\n"
+	    					  + this.drive.getNormalizedTapeContentAsString(this.program.getBlank())
+	    					  +"\n");
+    	}
     }
     
     /** load the program and initialize the machine */
@@ -66,12 +67,14 @@ public class Machine {
     	}else if(this.program.getTapesRequired() == 3 && this.program.getTracksRequired() == 1){
     		this.drive = new TripleTapeDrive(this.program.getBlank());
     	}
+    	
     }
 
     
     
     // one step
     public void step() throws MachineStoppedException {
+    	this.counter += 1;
     	List<Character> tapeContent = drive.read();
     	Pair<Integer, List<Character>> input = new Pair<Integer, List<Character>>(this.state, tapeContent);
     	Triplet<Integer, List<Character>, List<Movement>> next = this.program.step(input);
@@ -80,10 +83,11 @@ public class Machine {
     	this.drive.write(next.getValue1());
     	this.drive.move(next.getValue2());
     	if (this.verbose) {
-	    	System.out.print("C:" + this.counter + "  S: " + this.state + "\n"
+	    	System.out.print("                                                                " + 
+	    					 "C:" + this.counter + "  S: " + this.state + "  W: " + next.getValue1() 
+	    						  + "  M: " + next.getValue2() + "\n"
 	    					  + this.drive.getNormalizedTapeContentAsString(this.program.getBlank()));
     	}
-    	this.counter += 1;
     }
 
     // run continously
@@ -101,9 +105,12 @@ public class Machine {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }
-		System.out.println("Machine stopped");
-		System.out.println(this.drive.getNormalizedTapeContentAsString(this.program.getBlank()));
-		System.out.println();
+        System.out.print("\n                                                                " + 
+        				   "C:" + this.counter + "  S: " + this.state+"\n");
+		System.out.print(this.drive.getNormalizedTapeContentAsString(this.program.getBlank()));
+		System.out.print("\nMachine stopped after " + this.counter + " steps.\n");
+		String valid = this.program.getFinalStates().contains(this.state) ? "a valid" : "an invalid";
+		System.out.println("State " + this.state + " is " + valid + " final state.");
     }
     
     public void stop(){

@@ -106,15 +106,25 @@ public class TripleTapeDrive implements Drive {
 		String output = "";
 		// create the blank string
 		for (SingleTrackTape tape:this.tapes) {
-			String tapeContent = tape.getValueAsString();
-			StringBuilder builder = new StringBuilder(slug*2+3);
-			for (int i=0; i<slug*2+3; i++) {
+			StringBuilder builder = new StringBuilder(slug*4+2);
+			builder.append('|');
+			for (int i=0; i<=slug*2; i++) {
 				builder.append(blank);
+				builder.append('|');
 			}
-			int left = slug - tapeContent.length() + tape.getPosition();
-			builder.replace(left, left+tapeContent.length(), tapeContent);
+			
+			String tapeContent = tape.getValueAsString();
+
+			int left = (slug * 2) - (tape.getPosition() * 2);
+			if (tapeContent.equals("")) {
+				builder.replace(left, left+3, "[" + blank + "]");
+			} else {
+				builder.replace(left, left+tapeContent.length(), tapeContent);
+			}			
 			output += builder.toString();
+			// output += "P: " + tape.getPosition() + " L: " + left + " " + tape.getValue();
 			output += "\n";
+	
 		}	
 		return output;
 	}
