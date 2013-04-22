@@ -104,9 +104,10 @@ public class Machine {
     }
     
     public static void main(String[] args) {
-		Machine machine = new Machine(new FacultyCounterLoader());
-		machine.load("");
-		machine.setInput("00001");
+
+		Machine machine = new Machine(new HardwiredProgramLoader());
+		machine.load("multiply");
+		machine.setInput("0001001");
 		System.out.println("Set Tape content to: " + machine.getInput());
 		machine.initialize();
 		System.out.println("Machine initialized.");
