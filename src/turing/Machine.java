@@ -20,6 +20,8 @@ public class Machine {
     private final ProgramLoader loader;
     private Drive drive;
     private String originalInput;
+    private boolean verbose = false;
+    private int counter = 0;
 
     public Machine(ProgramLoader loader){
         this.loader = loader;
@@ -47,7 +49,8 @@ public class Machine {
 
     public void initialize(){
         this.state = this.program.getInitialState();
-        this.drive.gotoStartAllTapes();      
+        this.drive.gotoStartAllTapes();
+        this.counter = 0;
     }
     
     /** load the program and initialize the machine */
@@ -61,7 +64,7 @@ public class Machine {
     	if(this.program.getTapesRequired() == 1 && this.program.getTracksRequired() == 1) {
     		this.drive = new SingleTapeDrive(this.program.getBlank());
     	}else if(this.program.getTapesRequired() == 3 && this.program.getTracksRequired() == 1){
-    		this.drive = new TripletTapeDrive(this.program.getBlank());
+    		this.drive = new TripleTapeDrive(this.program.getBlank());
     	}
     }
 
@@ -76,10 +79,11 @@ public class Machine {
     	this.state = next.getValue0();
     	this.drive.write(next.getValue1());
     	this.drive.move(next.getValue2());
-    	System.out.println("S: " + this.state + " T: " + this.drive.getTapeContentAsString(1));
-    	System.out.println("S: " + this.state + " T: " + this.drive.getTapeContentAsString(2));
-    	System.out.println("S: " + this.state + " T: " + this.drive.getTapeContentAsString(3));
-    	System.out.println();
+    	if (this.verbose) {
+	    	System.out.print("C:" + this.counter + "  S: " + this.state + "\n"
+	    					  + this.drive.getNormalizedTapeContentAsString(this.program.getBlank()));
+    	}
+    	this.counter += 1;
     }
 
     // run continously
@@ -98,7 +102,7 @@ public class Machine {
             }
         }
 		System.out.println("Machine stopped");
-		System.out.println(this.drive.getTapeContentAsString(3));
+		System.out.println(this.drive.getNormalizedTapeContentAsString(this.program.getBlank()));
 		System.out.println();
     }
     
@@ -109,8 +113,11 @@ public class Machine {
     
     public static void main(String[] args) {
 		Machine machine = new Machine(new HardwiredProgramLoader());
+		// TODO: Make those args
+		machine.verbose = true;
 		machine.load("multiply");
 		machine.setInput("0001001");
+		
 		System.out.println("Set Tape content to: " + machine.getInput());
 		machine.initialize();
 		System.out.println("Machine initialized.");
