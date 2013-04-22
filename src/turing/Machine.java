@@ -1,12 +1,9 @@
 package turing;
 
 import java.util.List;
-import java.util.Set;
 
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
-
-import static java.lang.Thread.sleep;
 
 /** The base machine class. Can run a program.
  * 
@@ -14,7 +11,6 @@ import static java.lang.Thread.sleep;
 public class Machine {
 
     private Program program;  // configuration: M = (Q,Σ, Γ, δ, q0, B, F)
-    private List<List> tapes;
     private int state;
     private boolean stop = false;
     private final ProgramLoader loader;
@@ -108,9 +104,9 @@ public class Machine {
     }
     
     public static void main(String[] args) {
-		Machine machine = new Machine(new MultiplikationCounterLoader());
+		Machine machine = new Machine(new FacultyCounterLoader());
 		machine.load("");
-		machine.setInput("0001001");
+		machine.setInput("00001");
 		System.out.println("Set Tape content to: " + machine.getInput());
 		machine.initialize();
 		System.out.println("Machine initialized.");
