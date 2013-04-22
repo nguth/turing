@@ -106,8 +106,8 @@ public class Machine {
     public static void main(String[] args) {
 
 		Machine machine = new Machine(new HardwiredProgramLoader());
-		machine.load("multiply");
-		machine.setInput("0001001");
+		machine.load("factorial");
+		machine.setInput("0001");
 		System.out.println("Set Tape content to: " + machine.getInput());
 		machine.initialize();
 		System.out.println("Machine initialized.");
