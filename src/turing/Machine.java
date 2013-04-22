@@ -3,65 +3,119 @@ package turing;
 import java.util.List;
 import java.util.Set;
 
+import org.javatuples.Pair;
+import org.javatuples.Triplet;
+
 import static java.lang.Thread.sleep;
 
-/**
- *
+/** The base machine class. Can run a program.
+ * 
  */
 public class Machine {
 
     private Program program;  // configuration: M = (Q,Σ, Γ, δ, q0, B, F)
-
     private List<List> tapes;
     private int state;
     private boolean stop = false;
-    private final char BLANK;
-    private final Drive drive;
+    private final ProgramLoader loader;
+    private Drive drive;
     private String originalInput;
-    private String inputString;
 
-    public Machine(ProgramLoader loader, String program, Drive drive){
-        this.program = loader.load(program);
-        this.state = this.program.getInitialState();
-        this.BLANK = this.program.getBlank();
-        this.drive = drive;
+    public Machine(ProgramLoader loader){
+        this.loader = loader;
         this.originalInput = "";
-        this.inputString = "";
+    }
+
+
+    public void setInput(int tape, String data){
+        this.originalInput = data;
+        if (this.drive != null) {
+        	this.drive.setValue(tape, data);
+        }
+    }
+    // if no tape is given, write to tape 1.
+    public void setInput(String data){
+        this.originalInput = data;
+        if (this.drive != null) {
+        	this.drive.setValue(1, data);
+        }
+    }
+    
+    public String getInput(){
+        return this.originalInput;
+    }
+
+    public void initialize(){
+        this.state = this.program.getInitialState();
+        this.drive.gotoStartAllTapes();      
+    }
+    
+    /** load the program and initialize the machine */
+    public void load(String program) {
+    	this.program = loader.load(program);
+    	
+    	if (this.originalInput.isEmpty()) {
+    		this.originalInput = Character.toString(this.program.getBlank());
+    	}
+    	
+    	if(this.program.getTapesRequired() == 1 && this.program.getTracksRequired() == 1) {
+    		this.drive = new SingleTapeDrive(this.program.getBlank());
+    	}else if(this.program.getTapesRequired() == 3 && this.program.getTracksRequired() == 1){
+    		this.drive = new TripletTapeDrive(this.program.getBlank());
+    	}
+    }
+
+    
+    
+    // one step
+    public void step() throws MachineStoppedException {
+    	List<Character> tapeContent = drive.read();
+    	Pair<Integer, List<Character>> input = new Pair<Integer, List<Character>>(this.state, tapeContent);
+    	Triplet<Integer, List<Character>, List<Movement>> next = this.program.step(input);
+    	
+    	this.state = next.getValue0();
+    	this.drive.write(next.getValue1());
+    	this.drive.move(next.getValue2());
+    	System.out.println("S: " + this.state + " T: " + this.drive.getTapeContentAsString(1));
+    	System.out.println("S: " + this.state + " T: " + this.drive.getTapeContentAsString(2));
+    	System.out.println("S: " + this.state + " T: " + this.drive.getTapeContentAsString(3));
+    	System.out.println();
     }
 
     // run continously
     public void run(){
         this.stop = false;
         while(!stop){
-            step();
+            try {
+				step();
+			} catch (MachineStoppedException e1) {
+				this.stop = true;
+			}
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }
+		System.out.println("Machine stopped");
+		System.out.println(this.drive.getTapeContentAsString(3));
+		System.out.println();
     }
-
-    public void setInput(String data){
-        this.originalInput = data;
-    }
-    public String getInput(){
-        return this.originalInput;
-    }
-
-    public void initialize(){
-        this.inputString = this.originalInput;
-        this.state = this.program.getInitialState();
-    }
-
-    // one step
-    public void step(){
-
-
-    }
-
+    
     public void stop(){
         this.stop = true;
         System.out.println("turing.Machine stopped.");
     }
+    
+    public static void main(String[] args) {
+		Machine machine = new Machine(new HardwiredProgramLoader());
+		machine.load("multiply");
+		machine.setInput("0001001");
+		System.out.println("Set Tape content to: " + machine.getInput());
+		machine.initialize();
+		System.out.println("Machine initialized.");
+		machine.run();
+	}
+    
 }
+
