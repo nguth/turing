@@ -1,9 +1,7 @@
 package turing;
 
-import java.awt.event.KeyEvent;
-import java.security.Key;
+import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
@@ -21,7 +19,6 @@ public class Machine {
 	private Drive drive;
 	private String originalInput;
 
-	private int counter = 0;
 
 	public Machine(ProgramLoader loader) {
 		this.loader = loader;
@@ -67,8 +64,8 @@ public class Machine {
 		}
 	}
 
-	// one step
-	public void step() throws MachineStoppedException {
+	
+	public void runOneStep() throws MachineStoppedException {
 		List<Character> tapeContent = drive.read();
 		Pair<Integer, List<Character>> input = new Pair<Integer, List<Character>>(this.state, tapeContent);
 		Triplet<Integer, List<Character>, List<Movement>> next = this.program.step(input);
@@ -84,17 +81,28 @@ public class Machine {
 
 	public void stepMachine() {
 		this.stop = false;
-		Scanner sc = new Scanner(System.in);
 
 		while (!stop) {
 			try {
-				sc.nextLine();
-				step();
+
+				int ascii = System.in.read();
+				
+				//13-> typed 'enter' key (ignore 10), 114-> typed 'r' key
+				
+				if (ascii == 13) {
+					runOneStep();
+				} else if (ascii == 114) {
+					runMachine();
+				}
+
 			} catch (MachineStoppedException e1) {
 				this.stop = true;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
-		
+
 		System.out.println("Machine stopped");
 		System.out.println(this.drive.getTapeContentAsString(3));
 		System.out.println();
@@ -105,7 +113,7 @@ public class Machine {
 		this.stop = false;
 		while (!stop) {
 			try {
-				step();
+				runOneStep();
 			} catch (MachineStoppedException e1) {
 				this.stop = true;
 			}

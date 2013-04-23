@@ -7,6 +7,7 @@ public class TuringMachineStarter {
 	private Scanner sc;
 	private boolean isRunning;
 
+	//TODO Alle Auswahlkombinationen testen
 	public TuringMachineStarter() {
 		this.machine = new Machine(new HardwiredProgramLoader());
 		this.sc = new Scanner(System.in);
@@ -15,6 +16,7 @@ public class TuringMachineStarter {
 
 	public void run() {
 		System.out.println("Hello to the Turing Machine!\n");
+		
 		while (isRunning) {
 			chooseOperation();
 			writeInput();
@@ -34,10 +36,11 @@ public class TuringMachineStarter {
 
 		switch (operation) {
 		case "1":
+			System.out.println("\nMachine is started. Type the 'enter' key for step, otherwise type the 'r' key for run");
 			machine.stepMachine();
 			break;
 		case "2":
-			System.out.println("\nMachine is started:");
+			System.out.println("\n");
 			machine.runMachine();
 			break;
 		case "end":
@@ -45,7 +48,7 @@ public class TuringMachineStarter {
 			break;
 		default:
 			System.out.println("\n->" + operation + " is not a run modus.\n");
-			chooseOperation();
+			chooseRunModus();
 			return;
 		}
 
@@ -97,8 +100,8 @@ public class TuringMachineStarter {
 			end();
 			break;
 		default:
-			// Regex überprüfen
-			if (input.length() > 0 && input.endsWith("1") && input.matches("(0*1*)1")) {
+			// TODO Regex überprüfen (001001 funktioniert nicht)
+			if (input.length() > 0 &&input.matches("(0*1*)*1")) {
 				machine.setInput(input);
 				machine.initialize();
 				System.out.println("\n->Machine is initialized\n");
