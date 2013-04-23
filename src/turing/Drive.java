@@ -43,5 +43,12 @@ public interface Drive {
 	 * @param tape tape number for multi tape drives.
 	 * @return a String with the current position marked.
 	 */
-	String getTapeContentAsString(int tape);
+	String getTapeContentAsString();
+
+	
+	/** 
+	 * returns the tape with 15 chars before and after the head position.
+	 * @return A String
+	 */
+	String getNormalizedTapeContentAsString(char blank);
 }

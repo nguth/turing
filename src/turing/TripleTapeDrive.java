@@ -3,12 +3,12 @@ package turing;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TripletTapeDrive implements Drive {
+public class TripleTapeDrive implements Drive {
 
 	private ArrayList<SingleTrackTape> tapes;
 	private static char BLANK;
 
-	public TripletTapeDrive(String content, char blank) {
+	public TripleTapeDrive(String content, char blank) {
 		this.tapes = new ArrayList<SingleTrackTape>();
 		this.tapes.add(new SingleTrackTape(blank));
 		this.tapes.add(new SingleTrackTape(blank));
@@ -17,7 +17,7 @@ public class TripletTapeDrive implements Drive {
 		this.tapes.get(0).setValue(content);
 	}
 
-	public TripletTapeDrive(char blank) {
+	public TripleTapeDrive(char blank) {
 		this.tapes = new ArrayList<SingleTrackTape>();
 
 		this.tapes.add(new SingleTrackTape(blank));
@@ -94,8 +94,39 @@ public class TripletTapeDrive implements Drive {
 	}
 
 	@Override
-	public String getTapeContentAsString(int tape) {
-		return this.tapes.get(tape - 1).getValueAsString();
+	public String getTapeContentAsString() {
+		return this.tapes.get(0).getValueAsString() + "\n" +
+			   this.tapes.get(1).getValueAsString() + "\n" + 
+			   this.tapes.get(2).getValueAsString() + "\n";
+	}
+	
+	@Override
+	public String getNormalizedTapeContentAsString(char blank) {
+		int slug = 15;
+		String output = "";
+		// create the blank string
+		for (SingleTrackTape tape:this.tapes) {
+			StringBuilder builder = new StringBuilder(slug*4+2);
+			builder.append('|');
+			for (int i=0; i<=slug*2; i++) {
+				builder.append(blank);
+				builder.append('|');
+			}
+			
+			String tapeContent = tape.getValueAsString();
+
+			int left = (slug * 2) - (tape.getPosition() * 2);
+			if (tapeContent.equals("")) {
+				builder.replace(left, left+3, "[" + blank + "]");
+			} else {
+				builder.replace(left, left+tapeContent.length(), tapeContent);
+			}			
+			output += builder.toString();
+			// output += "P: " + tape.getPosition() + " L: " + left + " " + tape.getValue();
+			output += "\n";
+	
+		}	
+		return output;
 	}
 
 }
