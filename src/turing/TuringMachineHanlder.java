@@ -2,13 +2,13 @@ package turing;
 
 import java.util.Scanner;
 
-public class TuringMachineStarter {
+public class TuringMachineHanlder {
 	private Machine machine;
 	private Scanner sc;
 	private boolean isRunning;
 
-	//TODO Alle Auswahlkombinationen testen
-	public TuringMachineStarter() {
+	// TODO Alle Auswahlkombinationen testen
+	public TuringMachineHanlder() {
 		this.machine = new Machine(new HardwiredProgramLoader());
 		this.sc = new Scanner(System.in);
 		this.isRunning = true;
@@ -16,7 +16,7 @@ public class TuringMachineStarter {
 
 	public void run() {
 		System.out.println("Hello to the Turing Machine!\n");
-		
+
 		while (isRunning) {
 			chooseOperation();
 			writeInput();
@@ -33,6 +33,12 @@ public class TuringMachineStarter {
 		System.out.print("Your choice: ");
 
 		String operation = sc.next();
+
+		// TODO Es wäre vlt besser wenn die stepMachine() und runMachine()
+		// Methoden Exceptions werfen, dann kann man die Fehlermeldungen auf der
+		// Konsole ausgeben und danach wieder die chooseOption() ausführen.
+		// Beim Präsentieren muss die Applikation dann nicht nochmal gestartet
+		// werden
 
 		switch (operation) {
 		case "1":
@@ -101,7 +107,7 @@ public class TuringMachineStarter {
 			break;
 		default:
 			// TODO Regex überprüfen (001001 funktioniert nicht)
-			if (input.length() > 0 &&input.matches("(0*1*)*1")) {
+			if (input.length() > 0 && input.matches("(0*1*)*1")) {
 				machine.setInput(input);
 				machine.initialize();
 				System.out.println("\n->Machine is initialized\n");
@@ -115,7 +121,7 @@ public class TuringMachineStarter {
 	}
 
 	public static void main(String[] args) {
-		TuringMachineStarter starter = new TuringMachineStarter();
+		TuringMachineHanlder starter = new TuringMachineHanlder();
 		starter.run();
 	}
 
