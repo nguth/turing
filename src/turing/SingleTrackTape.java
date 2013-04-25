@@ -10,13 +10,11 @@ import java.util.List;
 public class SingleTrackTape {
 	private List<Character> tape;
 	private char blank;
-	private int slugLeft; // Korrekturfaktor für endloses Tape.
 	private int tapePosition = 0; // Position in der lokalen Liste.
 
 	public SingleTrackTape(char blank) {
 		this.tape = new LinkedList<Character>();
 		this.blank = blank;
-		this.slugLeft = 0;
 	}
 
 	public void setValue(String value) {
@@ -26,16 +24,20 @@ public class SingleTrackTape {
 	}
 
 	public String getValueAsString() {
-		if (this.tape.size() == 0) { return ""; }
-		StringBuilder builder = new StringBuilder(this.tape.size()*2+2);
+		if (this.tape.size() == 0) {
+			return "";
+		}
+		StringBuilder builder = new StringBuilder(this.tape.size() * 2 + 2);
 		for (int i = 0; i < this.tape.size(); i++) {
-			if(i==0) { builder.append('|');}  //only on first field.
+			if (i == 0) {
+				builder.append('|');
+			} // only on first field.
 			builder.append(this.tape.get(i));
-			builder.append('|');	
+			builder.append('|');
 		}
 		int tp = (this.tapePosition);
-		builder.replace(tp*2, tp*2+1, "[");
-		builder.replace(tp*2+2, tp*2+3, "]");
+		builder.replace(tp * 2, tp * 2 + 1, "[");
+		builder.replace(tp * 2 + 2, tp * 2 + 3, "]");
 		return builder.toString();
 	}
 
@@ -87,7 +89,7 @@ public class SingleTrackTape {
 	public char gotoStart() {
 		this.tapePosition = 0;
 
-		try{
+		try {
 			return this.tape.get(0);
 		} catch (IndexOutOfBoundsException e) {
 			return this.blank;

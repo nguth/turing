@@ -6,7 +6,6 @@ import java.util.List;
 public class TripleTapeDrive implements Drive {
 
 	private ArrayList<SingleTrackTape> tapes;
-	private static char BLANK;
 
 	public TripleTapeDrive(String content, char blank) {
 		this.tapes = new ArrayList<SingleTrackTape>();
@@ -45,6 +44,8 @@ public class TripleTapeDrive implements Drive {
 				break;
 			case STOP:
 				throw new MachineStoppedException();
+			default:
+				break;
 			}
 			moveIndex++;
 		}

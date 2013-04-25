@@ -11,7 +11,6 @@ import java.util.List;
 public class SingleTapeDrive implements Drive {
 	
 	private SingleTrackTape tape;
-	private static char BLANK;
 	
 	public SingleTapeDrive(String content, char blank){
 		this.tape = new SingleTrackTape(blank);
@@ -34,6 +33,9 @@ public class SingleTapeDrive implements Drive {
 			break;
 		case STOP:
 			throw new MachineStoppedException();
+		default:
+			break;
+			
 		}
 	}
 	

@@ -1,7 +1,5 @@
 package turing;
 
-import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.util.List;
 
 import org.javatuples.Pair;
@@ -15,11 +13,11 @@ public class Machine {
 
 	private Program program; // configuration: M = (Q,Σ, Γ, δ, q0, B, F)
 	private int state;
-	private boolean stop = false;
 	private final ProgramLoader loader;
 	private Drive drive;
 	private String originalInput;
-	// TODO sollte standardmässig auf false sein. Der User kann es evlt selber setzen
+	// TODO sollte standardmässig auf false sein. Der User kann es evlt selber
+	// setzen
 	private boolean verbose = true;
 	private int counter = 0;
 
@@ -88,66 +86,20 @@ public class Machine {
 		}
 	}
 
-	// run continously
-	public void stepMachine() {
-		this.stop = false;
-		while (!stop) {
-			try {
-
-				int ascii = System.in.read();
-
-				// 13-> typed 'enter' key (ignore 10), 114-> typed 'r' key
-
-				if (ascii == KeyEvent.VK_ENTER) {
-					runOneStep();
-				} else if (ascii == 114) {
-					runMachine();
-					return;
-				}
-
-			} catch (MachineStoppedException e) {
-				this.stop = true;
-			} catch (IOException e) {
-				this.stop = true;
-				e.printStackTrace();
-			}
-
-		}
-
-		System.out.print("\n                                                                " + "C:" + this.counter + "  S: " + this.state + "\n");
-		System.out.print(this.drive.getNormalizedTapeContentAsString(this.program.getBlank()));
-		System.out.print("\nMachine stopped after " + this.counter + " steps.\n");
-		String valid = this.program.getFinalStates().contains(this.state) ? "a valid" : "an invalid";
-		System.out.println("State " + this.state + " is " + valid + " final state.");
+	public Program getProgram() {
+		return program;
 	}
 
-	public void stop() {
-		this.stop = true;
-		System.out.println("turing.Machine stopped.");
+	public int getCounter() {
+		return counter;
 	}
 
-	// run continously
-	public void runMachine() {
-		this.stop = false;
-		while (!stop) {
-			try {
-				runOneStep();
-			} catch (MachineStoppedException e1) {
-				this.stop = true;
-			}
-			try {
-				Thread.sleep(50);
-			} catch (InterruptedException e) {
-				e.printStackTrace(); // To change body of catch statement use
-										// File | Settings | File Templates.
-			}
-		}
+	public Drive getDrive() {
+		return drive;
+	}
 
-		System.out.print("\n                                                                " + "C:" + this.counter + "  S: " + this.state + "\n");
-		System.out.print(this.drive.getNormalizedTapeContentAsString(this.program.getBlank()));
-		System.out.print("\nMachine stopped after " + this.counter + " steps.\n");
-		String valid = this.program.getFinalStates().contains(this.state) ? "a valid" : "an invalid";
-		System.out.println("State " + this.state + " is " + valid + " final state.");
+	public int getState() {
+		return state;
 	}
 
 }

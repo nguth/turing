@@ -2,14 +2,15 @@ package turing;
 
 import java.util.Scanner;
 
-public class TuringMachineHanlder {
-	private Machine machine;
+public class TuringMachineMain {
+	private MachineHandler machineHandler;
+	
 	private Scanner sc;
 	private boolean isRunning;
 
 	// TODO Alle Auswahlkombinationen testen
-	public TuringMachineHanlder() {
-		this.machine = new Machine(new HardwiredProgramLoader());
+	public TuringMachineMain() {
+		this.machineHandler = new MachineHandler();
 		this.sc = new Scanner(System.in);
 		this.isRunning = true;
 	}
@@ -43,11 +44,13 @@ public class TuringMachineHanlder {
 		switch (operation) {
 		case "1":
 			System.out.println("\nMachine is started. Type the 'enter' key for step, otherwise type the 'r' key for run");
-			machine.stepMachine();
+			machineHandler.stepMachine();
+			machineHandler.printResult();
 			break;
 		case "2":
 			System.out.println("\n");
-			machine.runMachine();
+			machineHandler.runMachine();
+			machineHandler.printResult();
 			break;
 		case "end":
 			end();
@@ -61,7 +64,7 @@ public class TuringMachineHanlder {
 	}
 
 	public void end() {
-		System.out.println("\n\nYou want to end the Turing Machine. Bye!");
+		System.out.println("\n\nYou end the Turing Machine. Bye!");
 		isRunning = false;
 		sc.close();
 		System.exit(0);
@@ -79,13 +82,13 @@ public class TuringMachineHanlder {
 
 		switch (operation) {
 		case "1":
-			machine.load("counter");
+			machineHandler.loadMachine("counter");
 			break;
 		case "2":
-			machine.load("multiply");
+			machineHandler.loadMachine("multiply");
 			break;
 		case "3":
-			machine.load("factorial");
+			machineHandler.loadMachine("factorial");
 			break;
 		case "end":
 			end();
@@ -108,8 +111,8 @@ public class TuringMachineHanlder {
 		default:
 			// TODO Regex überprüfen (001001 funktioniert nicht)
 			if (input.length() > 0 && input.matches("(0*1*)*1")) {
-				machine.setInput(input);
-				machine.initialize();
+				machineHandler.setInput(input);
+				machineHandler.initialize();
 				System.out.println("\n->Machine is initialized\n");
 			} else {
 				System.out.println("\n->" + input + " is not correct\n");
@@ -121,7 +124,7 @@ public class TuringMachineHanlder {
 	}
 
 	public static void main(String[] args) {
-		TuringMachineHanlder starter = new TuringMachineHanlder();
+		TuringMachineMain starter = new TuringMachineMain();
 		starter.run();
 	}
 
