@@ -1,5 +1,6 @@
 package turing;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.List;
 
@@ -97,7 +98,7 @@ public class Machine {
 
 				// 13-> typed 'enter' key (ignore 10), 114-> typed 'r' key
 
-				if (ascii == 13) {
+				if (ascii == KeyEvent.VK_ENTER) {
 					runOneStep();
 				} else if (ascii == 114) {
 					runMachine();
@@ -106,7 +107,6 @@ public class Machine {
 
 			} catch (MachineStoppedException e) {
 				this.stop = true;
-				e.printStackTrace();
 			} catch (IOException e) {
 				this.stop = true;
 				e.printStackTrace();
