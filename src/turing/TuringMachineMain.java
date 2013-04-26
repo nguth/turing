@@ -55,6 +55,9 @@ public class TuringMachineMain {
 		case "end":
 			end();
 			break;
+		case "q":
+			end();
+			break;
 		default:
 			System.out.println("\n->" + operation + " is not a run modus.\n");
 			chooseRunModus();
@@ -73,21 +76,21 @@ public class TuringMachineMain {
 	public void chooseOperation() {
 		System.out.println("Choose one operation: ");
 		System.out.println("********************* ");
-		System.out.println("1: Counter");
-		System.out.println("2: Multiply");
-		System.out.println("3: Factorial\n");
+		// System.out.println("1: Counter"); Das Programm verlangt keinen Input.
+		System.out.println("1: Multiply");
+		System.out.println("2: Factorial\n");
 		System.out.print("Your choice: ");
 
 		String operation = sc.next();
 
 		switch (operation) {
+//		case "1":
+//			machineHandler.loadMachine("counter");
+//			break;
 		case "1":
-			machineHandler.loadMachine("counter");
-			break;
-		case "2":
 			machineHandler.loadMachine("multiply");
 			break;
-		case "3":
+		case "2":
 			machineHandler.loadMachine("factorial");
 			break;
 		case "end":
@@ -108,14 +111,23 @@ public class TuringMachineMain {
 		case "end":
 			end();
 			break;
+		case "q":
+			end();
+			break;
 		default:
-			// TODO Regex überprüfen (001001 funktioniert nicht)
-			if (input.length() > 0 && input.matches("(0*1*)*1")) {
-				machineHandler.setInput(input);
-				machineHandler.initialize();
-				System.out.println("\n->Machine is initialized\n");
+			if (input.length() > 0) {
+				try {
+					machineHandler.setInput(input);
+					machineHandler.initialize();
+					System.out.println("\n->Machine is initialized\n");
+				} catch(IllegalArgumentException e) {
+					System.out.println("\n->Ungültiger Input: " + input+"\n");
+					writeInput();
+					return;
+				}
+				
 			} else {
-				System.out.println("\n->" + input + " is not correct\n");
+				System.out.println("\n-> Kein Input eingegeben.\n");
 				writeInput();
 				return;
 			}

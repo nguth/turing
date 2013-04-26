@@ -1,6 +1,7 @@
 package turing;
 
 import java.util.List;
+import java.util.regex.Matcher;
 
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
@@ -25,8 +26,18 @@ public class Machine {
 		this.loader = loader;
 		this.originalInput = "";
 	}
+	private void validateInput(String data) {
+		if(!(program instanceof Program)) { 
+			throw new IllegalStateException("No program loaded.");
+		}
+		Matcher matcher = program.getInputRe().matcher(data);
+		if(!matcher.matches()) {
+			throw new IllegalArgumentException("Input not valid.");
+		}
+	}
 
 	public void setInput(int tape, String data) {
+		validateInput(data);
 		this.originalInput = data;
 		if (this.drive != null) {
 			this.drive.setValue(tape, data);
@@ -35,6 +46,7 @@ public class Machine {
 
 	// if no tape is given, write to tape 1.
 	public void setInput(String data) {
+		validateInput(data);
 		this.originalInput = data;
 		if (this.drive != null) {
 			this.drive.setValue(1, data);

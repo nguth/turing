@@ -73,7 +73,7 @@ public class HardwiredProgramLoader implements ProgramLoader {
 		Program program = new Program('_', 3, 1);
 		program.setTransitions(transitions);
 		program.setStates(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
-		program.setSymbols(Arrays.asList('0', '1'));
+		program.setInputRe("^0*1$");
 		program.setTapeSymbols(Arrays.asList('0', '1'));
 		program.setFinalStates(Arrays.asList(10));
 		program.setInitialState(0);
@@ -109,7 +109,7 @@ public class HardwiredProgramLoader implements ProgramLoader {
 		Program program = new Program('_', 1, 1);
 		program.setTransitions(transitions);
 		program.setStates(Arrays.asList(1, 2));
-		program.setSymbols(Arrays.asList('0', '1'));
+		program.setInputRe("^[01]+$");
 		program.setTapeSymbols(Arrays.asList('0', '1'));
 		program.setFinalStates(Arrays.asList(1));
 		program.setInitialState(0);
@@ -137,7 +137,7 @@ public class HardwiredProgramLoader implements ProgramLoader {
 		Program program = new Program('_', 3, 1);
 		program.setTransitions(transitions);
 		program.setStates(Arrays.asList(0, 1, 2, 3, 4));
-		program.setSymbols(Arrays.asList('0', '1'));
+		program.setInputRe("^0*10*1$");
 		program.setTapeSymbols(Arrays.asList('0', '1'));
 		program.setFinalStates(Arrays.asList(4));
 		program.setInitialState(0);
