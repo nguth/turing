@@ -104,10 +104,11 @@ public class TripleTapeDrive implements Drive {
 	@Override
 	public String getNormalizedTapeContentAsString(char blank) {
 		int slug = 15;
+		int maxLength = slug*4+3;
 		String output = "";
 		// create the blank string
 		for (SingleTrackTape tape:this.tapes) {
-			StringBuilder builder = new StringBuilder(slug*4+2);
+			StringBuilder builder = new StringBuilder(maxLength);
 			builder.append('|');
 			for (int i=0; i<=slug*2; i++) {
 				builder.append(blank);
@@ -119,15 +120,17 @@ public class TripleTapeDrive implements Drive {
 			int left = (slug * 2) - (tape.getPosition() * 2);
 			if (tapeContent.equals("")) {
 				builder.replace(left, left+3, "[" + blank + "]");
+			} else if (left < 0){
+				String substring = tapeContent.substring(-left);
+				builder.replace(0, substring.length(), substring);
 			} else {
-//				if(left<0){
-//					left=left+left*-1;
-//				}
-//				System.out.println("l: "+left+", ltc:"+left+tapeContent.length()+", tc: "+tapeContent);
  				builder.replace(left, left+tapeContent.length(), tapeContent);
 			}			
+			if(builder.length() > maxLength) {
+				builder.setLength(maxLength);
+			}
 			output += builder.toString();
-			// output += "P: " + tape.getPosition() + " L: " + left + " " + tape.getValue();
+			//output += "P: " + tape.getPosition() + " L: " + left + " " + tape.getValue();
 			output += "\n";
 	
 		}	

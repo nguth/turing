@@ -27,7 +27,7 @@ public class SingleTrackTape {
 		if (this.tape.size() == 0) {
 			return "";
 		}
-		StringBuilder builder = new StringBuilder(this.tape.size() * 2 + 2);
+		StringBuilder builder = new StringBuilder(this.tape.size() * 2 + 1);
 		for (int i = 0; i < this.tape.size(); i++) {
 			if (i == 0) {
 				builder.append('|');

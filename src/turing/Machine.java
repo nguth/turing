@@ -69,6 +69,7 @@ public class Machine {
 	/** load the program and initialize the machine */
 	public void load(String program) {
 		this.program = loader.load(program);
+		this.program.validate();
 
 		if (this.originalInput.isEmpty()) {
 			this.originalInput = Character.toString(this.program.getBlank());
