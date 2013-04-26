@@ -120,7 +120,11 @@ public class TripleTapeDrive implements Drive {
 			if (tapeContent.equals("")) {
 				builder.replace(left, left+3, "[" + blank + "]");
 			} else {
-				builder.replace(left, left+tapeContent.length(), tapeContent);
+//				if(left<0){
+//					left=left+left*-1;
+//				}
+//				System.out.println("l: "+left+", ltc:"+left+tapeContent.length()+", tc: "+tapeContent);
+ 				builder.replace(left, left+tapeContent.length(), tapeContent);
 			}			
 			output += builder.toString();
 			// output += "P: " + tape.getPosition() + " L: " + left + " " + tape.getValue();

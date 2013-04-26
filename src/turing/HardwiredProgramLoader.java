@@ -59,12 +59,13 @@ public class HardwiredProgramLoader implements ProgramLoader {
 		transitions.put(new Pair<Integer, List<Character>>(6, Arrays.asList('0', '_', '_')), new Triplet<Integer, List<Character>, List<Movement>>(2, Arrays.asList('0', '_', '_'), Arrays.asList(Movement.NONE, Movement.LEFT, Movement.RIGHT)));
 
 		transitions.put(new Pair<Integer, List<Character>>(7, Arrays.asList('0', '0', '_')), new Triplet<Integer, List<Character>, List<Movement>>(8, Arrays.asList('0', '_', '_'), Arrays.asList(Movement.NONE, Movement.RIGHT, Movement.LEFT)));
+		transitions.put(new Pair<Integer, List<Character>>(7, Arrays.asList('0', '_', '_')), new Triplet<Integer, List<Character>, List<Movement>>(8, Arrays.asList('0', '_', '_'), Arrays.asList(Movement.NONE, Movement.RIGHT, Movement.LEFT)));
 
 		transitions.put(new Pair<Integer, List<Character>>(8, Arrays.asList('0', '0', '0')), new Triplet<Integer, List<Character>, List<Movement>>(8, Arrays.asList('0', '0', '0'), Arrays.asList(Movement.LEFT, Movement.NONE, Movement.LEFT)));
 		transitions.put(new Pair<Integer, List<Character>>(8, Arrays.asList('_', '0', '0')), new Triplet<Integer, List<Character>, List<Movement>>(8, Arrays.asList('0', '0', '0'), Arrays.asList(Movement.LEFT, Movement.NONE, Movement.LEFT)));
-
 		transitions.put(new Pair<Integer, List<Character>>(8, Arrays.asList('_', '0', '_')), new Triplet<Integer, List<Character>, List<Movement>>(9, Arrays.asList('_', '0', '_'), Arrays.asList(Movement.RIGHT, Movement.RIGHT, Movement.NONE)));
 		transitions.put(new Pair<Integer, List<Character>>(8, Arrays.asList('0', '_', '0')), new Triplet<Integer, List<Character>, List<Movement>>(10, Arrays.asList('0', '_', '0'), Arrays.asList(Movement.STOP, Movement.STOP, Movement.STOP)));
+		transitions.put(new Pair<Integer, List<Character>>(8, Arrays.asList('0', '_', '_')), new Triplet<Integer, List<Character>, List<Movement>>(8, Arrays.asList('0', '0', '0'), Arrays.asList(Movement.LEFT, Movement.NONE, Movement.LEFT)));
 
 		transitions.put(new Pair<Integer, List<Character>>(9, Arrays.asList('0', '0', '_')), new Triplet<Integer, List<Character>, List<Movement>>(9, Arrays.asList('0', '0', '_'), Arrays.asList(Movement.NONE, Movement.RIGHT, Movement.NONE)));
 		transitions.put(new Pair<Integer, List<Character>>(9, Arrays.asList('0', '_', '_')), new Triplet<Integer, List<Character>, List<Movement>>(3, Arrays.asList('0', '_', '_'), Arrays.asList(Movement.NONE, Movement.LEFT, Movement.RIGHT)));

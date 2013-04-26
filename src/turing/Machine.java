@@ -71,7 +71,7 @@ public class Machine {
 	}
 
 	// one step
-	public void runOneStep() throws MachineStoppedException {
+	public void runOneStep() throws Exception {
 		this.counter += 1;
 		List<Character> tapeContent = drive.read();
 		Pair<Integer, List<Character>> input = new Pair<Integer, List<Character>>(this.state, tapeContent);
@@ -101,5 +101,5 @@ public class Machine {
 	public int getState() {
 		return state;
 	}
-
+	
 }

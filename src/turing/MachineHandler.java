@@ -33,6 +33,9 @@ public class MachineHandler {
 			} catch (IOException e) {
 				this.isMachineRunning = false;
 				e.printStackTrace();
+			} catch (Exception e) {
+				this.isMachineRunning = false;
+				System.out.println("->Error. Machine stopped");
 			}
 
 		}
@@ -52,6 +55,9 @@ public class MachineHandler {
 				this.isMachineRunning = false;
 				e.printStackTrace(); // To change body of catch statement use
 										// File | Settings | File Templates.
+			} catch (Exception e) {
+				this.isMachineRunning = false;
+				System.out.println("->Error. Machine stopped");
 			}
 		}
 
