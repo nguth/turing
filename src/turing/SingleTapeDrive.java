@@ -67,7 +67,6 @@ public class SingleTapeDrive implements Drive {
 		ArrayList<Character> chars =  new ArrayList<Character>();
 		chars.add(this.tape.getChar());
 		return chars;
-		// return Arrays.asList(this.tape.getChar());
 	}
 	
 	@Override

@@ -28,8 +28,6 @@ public class HardwiredProgramLoader implements ProgramLoader {
 		return null;
 	}
 	
-	//TODO alle Bewegungen überprüfen 
-
 	private Program load_factorial() {
 		transitions = new HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>>();
 		transitions.put(new Pair<Integer, List<Character>>(0, Arrays.asList('0', '_', '_')), new Triplet<Integer, List<Character>, List<Movement>>(0, Arrays.asList('0', '0', '_'), Arrays.asList(Movement.RIGHT, Movement.RIGHT, Movement.NONE)));
@@ -97,7 +95,6 @@ public class HardwiredProgramLoader implements ProgramLoader {
 	 * @return the counter program
 	 */
 	private Program load_counter() {
-		//TODO Movement.STOP hinzufügen, weiss leider nicht wo (Mili)
 		transitions.put(new Pair<Integer, List<Character>>(0, Arrays.asList('1')), new Triplet<Integer, List<Character>, List<Movement>>(0, Arrays.asList('1'), Arrays.asList(Movement.RIGHT)));
 		transitions.put(new Pair<Integer, List<Character>>(0, Arrays.asList('0')), new Triplet<Integer, List<Character>, List<Movement>>(0, Arrays.asList('0'), Arrays.asList(Movement.RIGHT)));
 		transitions.put(new Pair<Integer, List<Character>>(0, Arrays.asList('_')), new Triplet<Integer, List<Character>, List<Movement>>(1, Arrays.asList('_'), Arrays.asList(Movement.LEFT)));

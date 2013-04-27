@@ -4,11 +4,10 @@ import java.util.Scanner;
 
 public class TuringMachineMain {
 	private MachineHandler machineHandler;
-	
+
 	private Scanner sc;
 	private boolean isRunning;
 
-	// TODO Alle Auswahlkombinationen testen
 	public TuringMachineMain() {
 		this.machineHandler = new MachineHandler();
 		this.sc = new Scanner(System.in);
@@ -34,12 +33,6 @@ public class TuringMachineMain {
 		System.out.print("Your choice: ");
 
 		String operation = sc.next();
-
-		// TODO Es wäre vlt besser wenn die stepMachine() und runMachine()
-		// Methoden Exceptions werfen, dann kann man die Fehlermeldungen auf der
-		// Konsole ausgeben und danach wieder die chooseOption() ausführen.
-		// Beim Präsentieren muss die Applikation dann nicht nochmal gestartet
-		// werden
 
 		switch (operation) {
 		case "1":
@@ -76,7 +69,6 @@ public class TuringMachineMain {
 	public void chooseOperation() {
 		System.out.println("Choose one operation: ");
 		System.out.println("********************* ");
-		// System.out.println("1: Counter"); Das Programm verlangt keinen Input.
 		System.out.println("1: Multiply");
 		System.out.println("2: Factorial\n");
 		System.out.print("Your choice: ");
@@ -84,9 +76,6 @@ public class TuringMachineMain {
 		String operation = sc.next();
 
 		switch (operation) {
-//		case "1":
-//			machineHandler.loadMachine("counter");
-//			break;
 		case "1":
 			machineHandler.loadMachine("multiply");
 			break;
@@ -94,6 +83,9 @@ public class TuringMachineMain {
 			machineHandler.loadMachine("factorial");
 			break;
 		case "end":
+			end();
+			break;
+		case "q":
 			end();
 			break;
 		default:
@@ -120,12 +112,12 @@ public class TuringMachineMain {
 					machineHandler.setInput(input);
 					machineHandler.initialize();
 					System.out.println("\n->Machine is initialized\n");
-				} catch(IllegalArgumentException e) {
-					System.out.println("\n->Ungültiger Input: " + input+"\n");
+				} catch (IllegalArgumentException e) {
+					System.out.println("\n->Ungültiger Input: " + input + "\n");
 					writeInput();
 					return;
 				}
-				
+
 			} else {
 				System.out.println("\n-> Kein Input eingegeben.\n");
 				writeInput();
@@ -139,5 +131,4 @@ public class TuringMachineMain {
 		TuringMachineMain starter = new TuringMachineMain();
 		starter.run();
 	}
-
 }

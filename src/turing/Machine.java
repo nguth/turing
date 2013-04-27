@@ -17,8 +17,6 @@ public class Machine {
 	private final ProgramLoader loader;
 	private Drive drive;
 	private String originalInput;
-	// TODO sollte standardmässig auf false sein. Der User kann es evlt selber
-	// setzen
 	private boolean verbose = true;
 	private int counter = 0;
 

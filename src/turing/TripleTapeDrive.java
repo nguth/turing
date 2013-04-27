@@ -130,7 +130,6 @@ public class TripleTapeDrive implements Drive {
 				builder.setLength(maxLength);
 			}
 			output += builder.toString();
-			//output += "P: " + tape.getPosition() + " L: " + left + " " + tape.getValue();
 			output += "\n";
 	
 		}	
