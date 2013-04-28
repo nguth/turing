@@ -1,6 +1,11 @@
-package turing;
+package driver;
 
 import java.util.List;
+
+import programm.movements.Movement;
+
+import exceptions.MachineStoppedException;
+
 
 public interface Drive {
 	int getNumberOfTapes();

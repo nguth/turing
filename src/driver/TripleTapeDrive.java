@@ -1,7 +1,14 @@
-package turing;
+package driver;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import programm.movements.Movement;
+
+import exceptions.MachineStoppedException;
+
+import tape.SingleTrackTape;
+
 
 public class TripleTapeDrive implements Drive {
 

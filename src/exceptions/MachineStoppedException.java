@@ -1,4 +1,4 @@
-package turing;
+package exceptions;
 
 public class MachineStoppedException extends Exception {
 

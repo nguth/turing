@@ -1,6 +1,9 @@
-package turing;
+package main;
 
 import java.util.Scanner;
+
+import machine.handler.MachineHandler;
+
 
 public class TuringMachineMain {
 	private MachineHandler machineHandler;
@@ -60,7 +63,7 @@ public class TuringMachineMain {
 	}
 
 	public void end() {
-		System.out.println("\n\nYou end the Turing Machine. Bye!");
+		System.out.println("\n\nBye!");
 		isRunning = false;
 		sc.close();
 		System.exit(0);
@@ -113,13 +116,13 @@ public class TuringMachineMain {
 					machineHandler.initialize();
 					System.out.println("\n->Machine is initialized\n");
 				} catch (IllegalArgumentException e) {
-					System.out.println("\n->Ungültiger Input: " + input + "\n");
+					System.out.println("\n->Input is not correct: " + input + "\n");
 					writeInput();
 					return;
 				}
 
 			} else {
-				System.out.println("\n-> Kein Input eingegeben.\n");
+				System.out.println("\n-> No input is given.\n");
 				writeInput();
 				return;
 			}

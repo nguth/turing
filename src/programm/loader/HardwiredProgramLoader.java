@@ -1,4 +1,4 @@
-package turing;
+package programm.loader;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
+
+import programm.Program;
+import programm.movements.Movement;
 
 public class HardwiredProgramLoader implements ProgramLoader {
 

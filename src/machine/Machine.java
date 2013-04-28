@@ -1,10 +1,19 @@
-package turing;
+package machine;
 
 import java.util.List;
 import java.util.regex.Matcher;
 
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
+
+import programm.Program;
+import programm.loader.ProgramLoader;
+import programm.movements.Movement;
+
+
+import driver.Drive;
+import driver.SingleTapeDrive;
+import driver.TripleTapeDrive;
 
 /**
  * The base machine class. Can run a program.

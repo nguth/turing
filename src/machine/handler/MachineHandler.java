@@ -1,7 +1,14 @@
-package turing;
+package machine.handler;
 
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+
+import programm.loader.HardwiredProgramLoader;
+
+import exceptions.MachineStoppedException;
+
+
+import machine.Machine;
 
 public class MachineHandler {
 	private Machine machine;

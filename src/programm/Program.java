@@ -1,4 +1,4 @@
-package turing;
+package programm;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,10 +9,13 @@ import java.util.regex.Pattern;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
+import programm.movements.Movement;
+
+
 /**
  *
  */
-class Program {
+public class Program {
     private Set<Integer> states;            //Q
     private Pattern inputRe;    		       //SIGMA
     private HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>> transitions;      //delta
