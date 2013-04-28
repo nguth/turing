@@ -1,13 +1,13 @@
-package driver;
+package drives;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import programm.movements.Movement;
+import program.movements.Movement;
 
 import exceptions.MachineStoppedException;
 
-import tape.SingleTrackTape;
+import tapes.SingleTrackTape;
 
 
 public class TripleTapeDrive implements Drive {

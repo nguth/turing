@@ -6,14 +6,14 @@ import java.util.regex.Matcher;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
-import programm.Program;
-import programm.loader.ProgramLoader;
-import programm.movements.Movement;
+import program.Program;
+import program.loader.ProgramLoader;
+import program.movements.Movement;
 
 
-import driver.Drive;
-import driver.SingleTapeDrive;
-import driver.TripleTapeDrive;
+import drives.Drive;
+import drives.SingleTapeDrive;
+import drives.TripleTapeDrive;
 
 /**
  * The base machine class. Can run a program.

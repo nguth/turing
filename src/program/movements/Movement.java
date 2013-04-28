@@ -1,4 +1,4 @@
-package programm.movements;
+package program.movements;
 
 /**
  *

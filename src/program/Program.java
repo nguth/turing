@@ -1,4 +1,4 @@
-package programm;
+package program;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
-import programm.movements.Movement;
+import program.movements.Movement;
 
 
 /**

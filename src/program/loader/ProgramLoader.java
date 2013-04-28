@@ -1,6 +1,6 @@
-package programm.loader;
+package program.loader;
 
-import programm.Program;
+import program.Program;
 
 /**
  *

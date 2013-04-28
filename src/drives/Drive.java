@@ -1,8 +1,8 @@
-package driver;
+package drives;
 
 import java.util.List;
 
-import programm.movements.Movement;
+import program.movements.Movement;
 
 import exceptions.MachineStoppedException;
 
