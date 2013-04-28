@@ -97,4 +97,9 @@ public class SingleTapeDrive implements Drive {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	@Override
+	public int getResult() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

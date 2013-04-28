@@ -73,6 +73,7 @@ public class MachineHandler {
 	public void printResult() {
 		System.out.print("\n                                                                " + "C:" + this.machine.getCounter() + "  S: " + this.machine.getState() + "\n");
 		System.out.print(this.machine.getDrive().getNormalizedTapeContentAsString(this.machine.getProgram().getBlank()));
+		System.out.println("\nResult: "+this.machine.getResultInNumbers());
 		System.out.print("\nMachine stopped after " + this.machine.getCounter() + " steps.\n");
 		String valid = this.machine.getProgram().getFinalStates().contains(this.machine.getState()) ? "a valid" : "an invalid";
 		System.out.println("State " + this.machine.getState() + " is " + valid + " final state.");

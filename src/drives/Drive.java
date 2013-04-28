@@ -56,4 +56,10 @@ public interface Drive {
 	 * @return A String
 	 */
 	String getNormalizedTapeContentAsString(char blank);
+	
+	/**
+	 * result in numbers. counts all zeros (Ex. 000000 -> returns 5)
+	 * @return int
+	 */
+	int  getResult();
 }

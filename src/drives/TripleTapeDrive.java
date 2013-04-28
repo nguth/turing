@@ -9,7 +9,6 @@ import exceptions.MachineStoppedException;
 
 import tapes.SingleTrackTape;
 
-
 public class TripleTapeDrive implements Drive {
 
 	private ArrayList<SingleTrackTape> tapes;
@@ -103,44 +102,58 @@ public class TripleTapeDrive implements Drive {
 
 	@Override
 	public String getTapeContentAsString() {
-		return this.tapes.get(0).getValueAsString() + "\n" +
-			   this.tapes.get(1).getValueAsString() + "\n" + 
-			   this.tapes.get(2).getValueAsString() + "\n";
+		return this.tapes.get(0).getValueAsString() + "\n" + this.tapes.get(1).getValueAsString() + "\n" + this.tapes.get(2).getValueAsString() + "\n";
 	}
-	
+
 	@Override
 	public String getNormalizedTapeContentAsString(char blank) {
 		int slug = 15;
-		int maxLength = slug*4+3;
+		int maxLength = slug * 4 + 3;
 		String output = "";
 		// create the blank string
-		for (SingleTrackTape tape:this.tapes) {
+		for (SingleTrackTape tape : this.tapes) {
 			StringBuilder builder = new StringBuilder(maxLength);
 			builder.append('|');
-			for (int i=0; i<=slug*2; i++) {
+			for (int i = 0; i <= slug * 2; i++) {
 				builder.append(blank);
 				builder.append('|');
 			}
-			
+
 			String tapeContent = tape.getValueAsString();
 
 			int left = (slug * 2) - (tape.getPosition() * 2);
 			if (tapeContent.equals("")) {
-				builder.replace(left, left+3, "[" + blank + "]");
-			} else if (left < 0){
+				builder.replace(left, left + 3, "[" + blank + "]");
+			} else if (left < 0) {
 				String substring = tapeContent.substring(-left);
 				builder.replace(0, substring.length(), substring);
 			} else {
- 				builder.replace(left, left+tapeContent.length(), tapeContent);
-			}			
-			if(builder.length() > maxLength) {
+				builder.replace(left, left + tapeContent.length(), tapeContent);
+			}
+			if (builder.length() > maxLength) {
 				builder.setLength(maxLength);
 			}
 			output += builder.toString();
 			output += "\n";
-	
-		}	
+
+		}
 		return output;
+	}
+
+	@Override
+	public int getResult() {
+		SingleTrackTape resultTape = tapes.get(2);
+
+		int counter = 0;
+		String value =  resultTape.getValueAsString();
+		
+		for (int i = 0; i < value.length(); i++) {
+			if(value.charAt(i)=='0'){
+				counter++;
+			}
+		}
+		
+		return counter;
 	}
 
 }

@@ -121,5 +121,8 @@ public class Machine {
 	public int getState() {
 		return state;
 	}
+	public int getResultInNumbers() {
+		return drive.getResult();
+	}
 	
 }
