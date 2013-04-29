@@ -4,11 +4,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import machine.Movement;
+
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
 import program.Program;
-import program.movements.Movement;
 
 public class HardwiredProgramLoader implements ProgramLoader {
 

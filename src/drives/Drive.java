@@ -2,7 +2,8 @@ package drives;
 
 import java.util.List;
 
-import program.movements.Movement;
+import machine.Movement;
+
 
 import exceptions.MachineStoppedException;
 

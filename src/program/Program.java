@@ -6,10 +6,11 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.regex.Pattern;
 
+import machine.Movement;
+
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
-import program.movements.Movement;
 
 
 /**

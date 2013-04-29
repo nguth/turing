@@ -1,4 +1,4 @@
-package program.movements;
+package machine;
 
 /**
  *
