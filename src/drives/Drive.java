@@ -1,6 +1,12 @@
-package turing;
+package drives;
 
 import java.util.List;
+
+import machine.Movement;
+
+
+import exceptions.MachineStoppedException;
+
 
 public interface Drive {
 	int getNumberOfTapes();
@@ -43,5 +49,18 @@ public interface Drive {
 	 * @param tape tape number for multi tape drives.
 	 * @return a String with the current position marked.
 	 */
-	String getTapeContentAsString(int tape);
+	String getTapeContentAsString();
+
+	
+	/** 
+	 * returns the tape with 15 chars before and after the head position.
+	 * @return A String
+	 */
+	String getNormalizedTapeContentAsString(char blank);
+	
+	/**
+	 * result in numbers. counts all zeros (Ex. 000000 -> returns 5)
+	 * @return int
+	 */
+	int  getResult();
 }

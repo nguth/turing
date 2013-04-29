@@ -1,8 +1,15 @@
-package turing;
+package drives;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
+
+import machine.Movement;
+
+
+import exceptions.MachineStoppedException;
+
+import tapes.SingleTrackTape;
+
 
 /**
  * A drive with one single track tape.
@@ -12,7 +19,6 @@ import java.util.List;
 public class SingleTapeDrive implements Drive {
 	
 	private SingleTrackTape tape;
-	private static char BLANK;
 	
 	public SingleTapeDrive(String content, char blank){
 		this.tape = new SingleTrackTape(blank);
@@ -35,6 +41,9 @@ public class SingleTapeDrive implements Drive {
 			break;
 		case STOP:
 			throw new MachineStoppedException();
+		default:
+			break;
+			
 		}
 	}
 	
@@ -46,6 +55,7 @@ public class SingleTapeDrive implements Drive {
 		return this.tape.left();
 	}
 	
+	@Override
 	public void setValue(int tapeNr, String value) {
 		this.tape.setValue(value);
 	}
@@ -65,7 +75,6 @@ public class SingleTapeDrive implements Drive {
 		ArrayList<Character> chars =  new ArrayList<Character>();
 		chars.add(this.tape.getChar());
 		return chars;
-		// return Arrays.asList(this.tape.getChar());
 	}
 	
 	@Override
@@ -77,11 +86,21 @@ public class SingleTapeDrive implements Drive {
 		return this.tape.getValue();
 	}
 	@Override
-	public String getTapeContentAsString(int tape){
+	public String getTapeContentAsString(){
 		return this.tape.getValueAsString();
 	}
 	@Override
 	public void write(List<Character> chars) {
 		this.tape.putChar(chars.get(0));
+	}
+	@Override
+	public String getNormalizedTapeContentAsString(char blank) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public int getResult() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

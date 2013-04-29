@@ -1,20 +1,24 @@
-package turing;
+package program;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.regex.Pattern;
+
+import machine.Movement;
 
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
 
+
+
 /**
  *
  */
-class Program {
+public class Program {
     private Set<Integer> states;            //Q
-    private Set<Character> symbols;         //SIGMA
+    private Pattern inputRe;    		       //SIGMA
     private HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>> transitions;      //delta
     private Set<Integer> finalStates;       //F
     private Set<Character> tapeSymbols;     //GAMMA
@@ -27,7 +31,7 @@ class Program {
     public Program(char blank, int tapesRequired, int tracksRequired){
         this.BLANK = '_';
         this.states = new CopyOnWriteArraySet<Integer>();
-        this.symbols = new CopyOnWriteArraySet<Character>();
+        this.inputRe = null;
         this.transitions = new HashMap<Pair<Integer, List<Character>>, Triplet<Integer, List<Character>, List<Movement>>>();
         this.finalStates = new CopyOnWriteArraySet<Integer>();
         this.tapeSymbols = new CopyOnWriteArraySet<Character>();
@@ -41,7 +45,7 @@ class Program {
     		Set<Integer> finalStates,
     		Set<Character> tapeSymbols, int initialState) {
         this.states = states;
-        this.symbols = symbols;
+        this.inputRe = null;
         this.transitions = transitions;
         this.finalStates = finalStates;
         this.tapeSymbols = tapeSymbols;
@@ -66,13 +70,12 @@ class Program {
             this.states.add(state);
         }
     }
-    public Set<Character> getSymbols() {
-        return symbols;
+    public Pattern getInputRe(){
+    	return inputRe;
     }
-    public void setSymbols(Iterable<Character> symbols) {
-        for(Character symbol:symbols) {
-            this.symbols.add(symbol);
-        }
+    
+    public void setInputRe(String re) {
+        this.inputRe = Pattern.compile(re);
     }
 
     public Set<Integer> getFinalStates() {
@@ -132,11 +135,10 @@ class Program {
         if(states.size() < 2) {
             throw new VerifyError("There are less than 2 states.");
         }
-        if(symbols.size() < 1) {
+        if(!(inputRe instanceof Pattern)) {
             throw new VerifyError("There are no symbols.");
         }
         // can be extended
     }
-    
 
 }
